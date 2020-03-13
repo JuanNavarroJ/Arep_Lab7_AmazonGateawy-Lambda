@@ -5,6 +5,7 @@
  */
 package edu.eci.arep.server;
 
+import edu.eci.arep.services.MathServices;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import spark.Request;
@@ -96,10 +97,11 @@ public class SparkWebApp {
      */
     private static JSONObject resultsPage(Request req, Response res) {
         int num = Integer.parseInt(req.queryParams("numero"));
+        MathServices mathS = new MathServices();
         
         JSONArray jsonA = new JSONArray();
         JSONObject jsonO = new JSONObject();
-        jsonO.put("numero", num);
+        jsonO.put("numero", mathS.square(num));
 
         
         return jsonO;
