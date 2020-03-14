@@ -5,9 +5,13 @@
  */
 package edu.eci.arep.server;
 
-import edu.eci.arep.services.MathServices;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import spark.Request;
 import spark.Response;
 import static spark.Spark.*;
@@ -19,7 +23,10 @@ import static spark.Spark.*;
  */
 public class SparkWebApp {
 
-
+    //Atributos
+    
+    private static URL url;
+    
     /**
      * This main method uses SparkWeb static methods and lambda functions to
      * create a simple Hello World web app. It maps the lambda function to the
@@ -92,19 +99,25 @@ public class SparkWebApp {
      *
      * @param req Es el request de Spark
      * @param res Es el response de Spark
-     * @return Retorna un String con el html el cual contiene la respuesta de la
-     * media y demas datos.
+     * @return Retorna un String con la respuesta de la Api REST de Amazon Gateway
      */
-    private static JSONObject resultsPage(Request req, Response res) {
+    private static String resultsPage(Request req, Response res){
         int num = Integer.parseInt(req.queryParams("numero"));
-        MathServices mathS = new MathServices();
-        
-        JSONArray jsonA = new JSONArray();
-        JSONObject jsonO = new JSONObject();
-        jsonO.put("numero", mathS.square(num));
-
-        
-        return jsonO;
+        String text = "";
+        try {
+            url = new URL("https://svz7imsuh3.execute-api.us-east-1.amazonaws.com/Beta" + "?value=" + num);
+            String temp;
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(url.openStream()));
+            while ((temp = reader.readLine()) != null) {
+                text = text + temp;
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(SparkWebApp.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SparkWebApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return text;
     }
 
     /**
