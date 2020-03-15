@@ -1,5 +1,9 @@
 # Patrones Arquitecturales
 
+## Link de prueba
+
+http://ec2-54-152-103-77.compute-1.amazonaws.com:4567/inputdata
+
 ## Desarrollo 
 
 ### 1. Usando Amazon Gateway y lambda crear un servicio que reciba un parámetro numérico y retorne el cuadrado del número.
@@ -19,6 +23,9 @@ Nos dará el enlace en el cual está disponible el API.
 Ahora revisamos la función lambda creada en el laboratorio llamada square.
 ![5](https://user-images.githubusercontent.com/44879884/76693071-71fa1e00-662d-11ea-834a-0d9886c7ed97.PNG)
 ![6](https://user-images.githubusercontent.com/44879884/76693072-7292b480-662d-11ea-80c8-9f89046d2332.PNG)
+
+Revisamos que la Api este funcionando correctamente y pasamos como parametro en la URL el numero.
+![24](https://user-images.githubusercontent.com/44879884/76693544-fb611e80-6634-11ea-96f7-2519f72a7c6b.PNG)
 
 
 ### 2. Crear una máquina virtual Linux en AWS
